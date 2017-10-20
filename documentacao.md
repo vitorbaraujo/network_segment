@@ -79,6 +79,26 @@ subnet 10.0.0.0 netmask 255.255.0.0 {
 
 Neste arquivo, pode-se notar a configuração das informações de servidor de DNS, o roteador da subrede (que no caso é a própria interface que está provendo o acesso) e o endereço de _broadcast_ da subrede, bem como sua máscara.
 
+Após inserir as configurações do DHCP, para cumprir com o requisito de que sempre que um host for conectado à rede ele obtenha o mesmo endereço IP do servidor DHCP, deve ser inserida a seguinte regra no arquivo `/etc/dhcp/dhcpd.conf`:
+
+```shell
+host Vitor {
+  hardware ethernet 64:1c:67:7c:23:76;
+  fixed-address 10.0.30.101;
+}
+```
+
+Essa regra especifica o host de nome `Vitor`. Esse regra tem as seguintes configurações:
+
+- MAC Address do computador que irá se conectar à rede
+- IP que lhe será dado no momento que o host se conectar à rede
+
+Após inserir a regra no arquivo especificado, deve-se  reiniciar o serviço DHCP por meio do comando:
+
+```shell
+sudo service restart isc-dhcp-server
+```
+
 Por fim, deve-se alterar as tabelas de roteamento de IP. Esse passo pode ser resumido em executar o _script_ que foi criado para inserir as regras nas tabelas:
 
 ```shell
@@ -128,6 +148,20 @@ ifconfig
 
 Isso dirá algumas informações básicas sobre a configuração de rede adquirida. A esta altura, deve-se conseguir navegar livremente na _internet_.
 
-### Testes de Aceitação
+### Testes de Validação
+
+Para validar a configuração do roteador foram utilizadas as ferramentas `tcpdump` e `ping`.
+
+Para validar a conectividade do host que está conectado à rede, foi feita uma consulta ICMP por meio da ferramenta `ping` ao servidor DNS no endereço 192.168.133.1, como é possível observar na imagem abaixo:
+
+![connectivity](connectivity.png)
+
+Para validar a utilização de NAT na configuração do roteador, foi simulada uma requisição ao _website_ `tecmundo.com.br`. Na imagem abaixo é possível perceber que o host conectado à rede com IP privado fixo `10.0.30.101` envia uma requisição ao servidor DNS localizado no endereço 192.168.133.1.
+
+![dns-client](dns-client.png)
+
+Após o host conectado à rede enviar a requisição, o host que está configurado como roteador recebe esta e, por meio do NAT, insere seu próprio IP na requisição ao servidor DNS, como é possível observar na imagem abaixo:
+
+![dns-server](dns-server.png)
 
 ### Referências Bibliográficas
