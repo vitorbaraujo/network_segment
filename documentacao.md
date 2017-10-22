@@ -48,6 +48,8 @@ Basicamente, o que esse arquivo quer dizer, escrito dessa forma é que há a int
   * _Gateway_: 10.0.0.2
   * _allow-hotplug_: Isso significa que o sistema operacional detectará e aplicará todas as configurações assim que o cabo for ligado.
 
+Após atualizar o arquivo `/etc/network/interfaces` é necessário reiniciar o computador para que as informações das interfaces sejam atualizadas.
+
 Como dito antes, essa interface é a que ligará a subrede criada como proposta do trabalho à _internet_. Seguindo em frente, configurou-se o acesso WAN com o auxílio do _network-manager_. Nas configurações da rede, escolheu-se a opção "Manual" ao invés de DHCP e configurou-se todas as informações desejadas, como segue abaixo:
 
 ![Configuração _wireless_](wireless_manual.png)
