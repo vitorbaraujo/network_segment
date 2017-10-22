@@ -165,3 +165,7 @@ Após o host conectado à rede enviar a requisição, o host que está configura
 ![dns-server](dns-server.png)
 
 ### Referências Bibliográficas
+
+* Network Manager. https://wiki.debian.org/NetworkManager. Acessado: 15/10/17.
+* Network Configuration. https://wiki.debian.org/NetworkConfiguration. Acessado: 15/10/17.
+* How to reserve IP address in DHCP server. https://askubuntu.com/questions/392599/how-to-reserve-ip-address-in-dhcp-server. Acessed: 17/10/17.
